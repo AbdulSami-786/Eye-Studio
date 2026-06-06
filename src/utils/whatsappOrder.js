@@ -1,7 +1,7 @@
 // WhatsApp Order Integration
 // Sends order details to WhatsApp Business Number
 
-const WHATSAPP_BUSINESS_NUMBER = "+923711191925"; // Eye Studio WhatsApp Number
+const WHATSAPP_BUSINESS_NUMBER = "+923183140548"; // Eye Studio WhatsApp Number
 
 export const formatOrderMessage = (orderData) => {
   const {
