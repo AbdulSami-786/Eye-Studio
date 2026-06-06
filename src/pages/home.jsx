@@ -3820,7 +3820,7 @@ const TrendingProducts = () => {
   const sections = [
     { label: "Trending Now",  title: "Men's Sunglasses",   subtitle: "Bold frames built for the modern man", products: menFinal },
     { label: "New Arrivals",  title: "Women's Sunglasses", subtitle: "Elegant designs that turn heads",       products: womenFinal },
-    { label: "Young Vision",  title: "Kids' Sunglasses",   subtitle: "Durable, playful & UV-protected",      products: kidsFinal },
+    { label: "Young Vision",  title: "Kids' Spectacles",   subtitle: "Durable, playful & UV-protected",      products: kidsFinal },
   ];
   return (
     <section className="py-14 sm:py-24 bg-white">
