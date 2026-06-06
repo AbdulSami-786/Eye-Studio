@@ -1607,6 +1607,1272 @@
 
 
 
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+// import { useCart } from '../context/CartContext';
+// import { products } from '../data/product';
+
+// // --- Hero Slides ---
+// const heroSlides = [
+//   {
+//     id: 1,
+//     title: "Visionary Elegance",
+//     subtitle: "Autumn/Winter 2024",
+//     description: "Discover frames that redefine luxury",
+//     ctaPrimary: "Shop Collection",
+//     ctaSecondary: "Explore Luxury",
+//     image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format",
+//     gradient: "from-black/70 via-black/40 to-transparent"
+//   },
+//   {
+//     id: 2,
+//     title: "Minimalist Icon",
+//     subtitle: "The New Classic",
+//     description: "Where craftsmanship meets modern design",
+//     ctaPrimary: "Discover Now",
+//     ctaSecondary: "Shop Now",
+//     image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format",
+//     gradient: "from-black/60 via-black/30 to-transparent"
+//   },
+//   {
+//     id: 3,
+//     title: "Timeless Craft",
+//     subtitle: "Limited Edition",
+//     description: "Handcrafted perfection for the discerning",
+//     ctaPrimary: "Shop Limited",
+//     ctaSecondary: "Learn More",
+//     image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2070&auto=format",
+//     gradient: "from-black/70 via-black/40 to-transparent"
+//   }
+// ];
+
+// // --- Categories ---
+// const categories = [
+//   { id: 1, name: "Men", image: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format", link: "/shop/men" },
+//   { id: 2, name: "Women", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format", link: "/shop/women" },
+  
+//   { id: 3, name: "Kids", image: "/happy-kid.jpg", link: "/shop/kids" }
+// ];
+
+// // --- Mapped product helpers ---
+// const mapProduct = (p, fallbackRating = 4.8, fallbackReviews = 124) => ({
+//   ...p,
+//   price: p.pricing?.discounted || 0,
+//   originalPrice: p.pricing?.original || 0,
+//   discount: p.pricing?.discount_percent || 0,
+//   image: p.cardImage || '/placeholder.jpg',
+//   rating: fallbackRating,
+//   reviews: fallbackReviews,
+// });
+
+// // Filter by category string — adjust the strings to match YOUR product data's category values
+// const menProducts = products
+//   .filter(p => {
+//     const cat = (p.category || '').toLowerCase();
+//     const gender = (p.gender || '').toLowerCase();
+//     return cat.includes('men') || gender === 'men' || gender === 'male';
+//   })
+//   .slice(0, 4)
+//   .map(p => mapProduct(p, 4.8, 124));
+
+// const womenProducts = products
+//   .filter(p => {
+//     const cat = (p.category || '').toLowerCase();
+//     const gender = (p.gender || '').toLowerCase();
+//     return cat.includes('women') || cat.includes('woman') || gender === 'women' || gender === 'female';
+//   })
+//   .slice(0, 4)
+//   .map(p => mapProduct(p, 4.9, 98));
+
+// const kidsProducts = products
+//   .filter(p => {
+//     const cat = (p.category || '').toLowerCase();
+//     const gender = (p.gender || '').toLowerCase();
+//     return cat.includes('kid') || cat.includes('child') || cat.includes('junior') || gender === 'kids';
+//   })
+//   .slice(0, 4)
+//   .map(p => mapProduct(p, 4.7, 56));
+
+// // Fallback: if your filters return 0 products, slice from the full array
+// const menFinal   = menProducts.length   > 0 ? menProducts   : products.slice(0, 4).map(p => mapProduct(p, 4.8, 124));
+// const womenFinal = womenProducts.length > 0 ? womenProducts : products.slice(4, 8).map(p => mapProduct(p, 4.9, 98));
+// const kidsFinal  = kidsProducts.length  > 0 ? kidsProducts  : products.slice(8, 12).map(p => mapProduct(p, 4.7, 56));
+
+// // --- Features ---
+// const features = [
+//   { icon: "🚚", title: "Express Delivery", description: "Free shipping on all orders over Rs. 5,000" },
+//   { icon: "🛡️", title: "Authenticity Guaranteed", description: "100% original luxury products" },
+//   { icon: "🏆", title: "Premium Quality", description: "Handcrafted with Japanese titanium" },
+//   { icon: "✨", title: "Lifetime Comfort", description: "Ergonomic design for daily wear" }
+// ];
+
+// // --- Testimonials ---
+// const testimonials = [
+//   { id: 1, name: "Fatima Khan", role: "Fashion Blogger", content: "Eye Studio has the best collection I've seen. The quality is exceptional and the style is incredible. Highly recommend!", rating: 5, image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format" },
+//   { id: 2, name: "Ali Hassan", role: "Business Owner", content: "I've tried many eyewear brands but Eye Studio stands out. The comfort and design are unmatched. Worth every penny!", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format" },
+//   { id: 3, name: "Ayesha Malik", role: "Doctor", content: "My whole family uses Eye Studio glasses. Great quality, perfect fit, and amazing designs. Best choice for eye care!", rating: 5, image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1887&auto=format" }
+// ];
+
+// // --- Instagram Posts ---
+// const instagramPosts = [
+//   "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format",
+//   "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1594938378606-c8141f7e2b88?q=80&w=1887&auto=format",
+//   "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format"
+// ];
+
+// // ─── HERO ────────────────────────────────────────────────────────────────────
+// const Hero = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const { scrollY } = useScroll();
+//   const y = useTransform(scrollY, [0, 500], [0, 200]);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+//     }, 6000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const slide = heroSlides[currentSlide];
+
+//   return (
+//     <div className="relative h-screen w-full overflow-hidden">
+//       <AnimatePresence mode="wait">
+//         <motion.div
+//           key={currentSlide}
+//           initial={{ opacity: 0, scale: 1.1 }}
+//           animate={{ opacity: 1, scale: 1 }}
+//           exit={{ opacity: 0, scale: 1.05 }}
+//           transition={{ duration: 1.2, ease: "easeOut" }}
+//           className="absolute inset-0"
+//         >
+//           <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
+//           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`} />
+//         </motion.div>
+//       </AnimatePresence>
+
+//       <motion.div style={{ y }} className="relative z-10 h-full flex items-center">
+//         <div className="container mx-auto px-6">
+//           <motion.div
+//             initial={{ opacity: 0, y: 30 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ delay: 0.3, duration: 0.8 }}
+//             className="max-w-2xl"
+//           >
+//             <p className="text-white/80 text-sm tracking-[0.3em] mb-4">{slide.subtitle}</p>
+//             <h1 className="text-6xl md:text-8xl font-serif text-white mb-6 leading-tight">
+//               {slide.title}
+//             </h1>
+//             <p className="text-white/90 text-lg md:text-xl mb-10 font-light">{slide.description}</p>
+//             <div className="flex gap-4">
+//               <button className="px-8 py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide">
+//                 {slide.ctaPrimary}
+//               </button>
+//               <button className="px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wide backdrop-blur-sm">
+//                 {slide.ctaSecondary}
+//               </button>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </motion.div>
+
+//       <motion.div
+//         initial={{ opacity: 0, y: 50 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ delay: 0.6, duration: 0.8 }}
+//         className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20"
+//       >
+//         <div className="flex gap-6">
+//           {heroSlides.map((_, idx) => (
+//             <button
+//               key={idx}
+//               onClick={() => setCurrentSlide(idx)}
+//               className={`w-2 h-2 rounded-full transition-all duration-300 ${
+//                 idx === currentSlide ? 'w-8 bg-white' : 'bg-white/50'
+//               }`}
+//             />
+//           ))}
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+// };
+
+// // ─── FEATURED CATEGORIES ─────────────────────────────────────────────────────
+// const FeaturedCategories = () => {
+//   const navigate = useNavigate();
+
+//   const handleShopNow = (categoryName) => {
+//     navigate(`/products?category=${categoryName.toLowerCase()}`);
+//   };
+
+//   return (
+//     <section className="py-24 bg-[#f5f3f0]">
+//       <div className="container mx-auto px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="text-center mb-16"
+//         >
+//           <h2 className="text-4xl md:text-5xl font-serif mb-4">Discover Collections</h2>
+//           <p className="text-gray-600 max-w-lg mx-auto">Curated for every style and occasion</p>
+//         </motion.div>
+
+//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//           {categories.slice(0, 3).map((cat, idx) => (
+//             <motion.div
+//               key={cat.id}
+//               initial={{ opacity: 0, y: 30 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ delay: idx * 0.1 }}
+//               onClick={() => handleShopNow(cat.name)}
+//               className="group relative overflow-hidden rounded-2xl cursor-pointer h-[400px]"
+//             >
+//               <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+//               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+//               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+//                 <h3 className="text-3xl font-serif mb-2">{cat.name}</h3>
+//                 <button 
+//                   onClick={(e) => {
+//                     e.stopPropagation();
+//                     handleShopNow(cat.name);
+//                   }}
+//                   className="inline-block text-sm tracking-wide border-b border-white/50 pb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:border-white bg-transparent text-white cursor-pointer"
+//                 >
+//                   Shop Now →
+//                 </button>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+//           {categories.slice(3, 5).map((cat, idx) => (
+//             <motion.div
+//               key={cat.id}
+//               initial={{ opacity: 0, y: 30 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ delay: 0.3 + idx * 0.1 }}
+//               onClick={() => handleShopNow(cat.name)}
+//               className="group relative overflow-hidden rounded-2xl cursor-pointer h-[300px]"
+//             >
+//               <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+//               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+//               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+//                 <h3 className="text-3xl font-serif mb-2">{cat.name}</h3>
+//                 <button 
+//                   onClick={(e) => {
+//                     e.stopPropagation();
+//                     handleShopNow(cat.name);
+//                   }}
+//                   className="inline-block text-sm tracking-wide border-b border-white/50 pb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:border-white bg-transparent text-white cursor-pointer"
+//                 >
+//                   Shop Now →
+//                 </button>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── CATEGORY PRODUCT ROW ─────────────────────────────────────────────────────
+// const CategoryProductRow = ({ label, title, subtitle, products: rowProducts, sectionIdx }) => {
+//   const { addToCart } = useCart();
+//   const [addedId, setAddedId] = useState(null);
+
+//   const handleAddToCart = (product) => {
+//     addToCart({
+//       id: product.id,
+//       name: product.name,
+//       price: product.price,
+//       image: product.image,
+//       quantity: 1,
+//     });
+//     setAddedId(product.id);
+//     setTimeout(() => setAddedId(null), 2000);
+//   };
+
+//   if (!rowProducts || rowProducts.length === 0) return null;
+
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 40 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 0.6, delay: sectionIdx * 0.05 }}
+//       className="mb-20 last:mb-0"
+//     >
+//       {/* Section Header */}
+//       <div className="mb-10">
+//         <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-3 flex items-center gap-2">
+//           <span className="inline-block w-5 h-px bg-gray-300" />
+//           {label}
+//         </p>
+//         <h2 className="text-4xl md:text-5xl font-serif leading-none mb-2">{title}</h2>
+//         <p className="text-gray-500 text-sm">{subtitle}</p>
+//       </div>
+
+//       {/* Divider */}
+//       <div className="w-full h-px bg-gray-100 mb-10" />
+
+//       {/* Product Grid */}
+//       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
+//         {rowProducts.map((product, i) => (
+//           <motion.div
+//             key={`${title}-${product.id}-${i}`}
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.4, delay: i * 0.07 }}
+//             className="group cursor-pointer"
+//           >
+//             {/* Image */}
+//             <div className="relative overflow-hidden bg-[#f0ede8] rounded-2xl aspect-square mb-4">
+//               <img
+//                 src={product.image}
+//                 alt={product.name}
+//                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+//               />
+
+//               {/* Discount badge */}
+//               {product.discount > 0 && (
+//                 <span className="absolute top-3 left-3 bg-black text-white text-[10px] tracking-wider px-2.5 py-1 rounded-full font-medium">
+//                   -{product.discount}%
+//                 </span>
+//               )}
+
+//               {/* Add to cart — slides up on hover */}
+//               <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out p-3">
+//                 <button
+//                   onClick={() => handleAddToCart(product)}
+//                   className="w-full bg-black text-white text-xs tracking-widest uppercase py-2.5 rounded-xl hover:bg-gray-800 transition-colors"
+//                 >
+//                   {addedId === product.id ? '✓ Added' : 'Add to Cart'}
+//                 </button>
+//               </div>
+//             </div>
+
+//             {/* Info */}
+//             <div>
+//               <h4 className="text-sm font-medium tracking-wide truncate mb-1">{product.name}</h4>
+//               <div className="flex items-center gap-2">
+//                 {product.originalPrice > 0 && product.originalPrice !== product.price && (
+//                   <span className="text-xs text-gray-400 line-through">
+//                     Rs. {product.originalPrice.toLocaleString('en-PK')}
+//                   </span>
+//                 )}
+//                 <span className="text-sm font-serif">
+//                   Rs. {product.price.toLocaleString('en-PK')}
+//                 </span>
+//               </div>
+//               <div className="flex items-center gap-1 mt-1">
+//                 <span className="text-yellow-400 text-xs">★</span>
+//                 <span className="text-xs text-gray-400">{product.rating} ({product.reviews})</span>
+//               </div>
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// // ─── TRENDING PRODUCTS (3 category rows) ─────────────────────────────────────
+// const TrendingProducts = () => {
+//   const categorySections = [
+//     {
+//       label: "Trending Now",
+//       title: "Men's Sunglasses",
+//       subtitle: "Bold frames built for the modern man",
+//       products: menFinal,
+//     },
+//     {
+//       label: "New Arrivals",
+//       title: "Women's Sunglasses",
+//       subtitle: "Elegant designs that turn heads",
+//       products: womenFinal,
+//     },
+//     {
+//       label: "Young Vision",
+//       title: "Kids' Sunglasses",
+//       subtitle: "Durable, playful & UV-protected",
+//       products: kidsFinal,
+//     },
+//   ];
+
+//   return (
+//     <section className="py-24 bg-white">
+//       <div className="container mx-auto px-6">
+//         {categorySections.map((cat, idx) => (
+//           <CategoryProductRow
+//             key={cat.title}
+//             label={cat.label}
+//             title={cat.title}
+//             subtitle={cat.subtitle}
+//             products={cat.products}
+//             sectionIdx={idx}
+//           />
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── WHY CHOOSE US ────────────────────────────────────────────────────────────
+// const WhyChooseUs = () => {
+//   return (
+//     <section className="py-24 bg-[#f5f3f0]">
+//       <div className="container mx-auto px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="text-center mb-16"
+//         >
+//           <h2 className="text-4xl md:text-5xl font-serif mb-4">Why Choose Eye Studio</h2>
+//           <p className="text-gray-600">Experience the difference of true luxury eyewear</p>
+//         </motion.div>
+
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+//           {features.map((feature, idx) => (
+//             <motion.div
+//               key={feature.title}
+//               initial={{ opacity: 0, y: 30 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ delay: idx * 0.1 }}
+//               className="group text-center p-6 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+//             >
+//               <div className="inline-flex p-3 bg-black rounded-full mb-4 text-white group-hover:scale-110 transition-transform text-2xl">
+//                 {feature.icon}
+//               </div>
+//               <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
+//               <p className="text-gray-500 text-sm">{feature.description}</p>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── BRAND STORY ──────────────────────────────────────────────────────────────
+// const BrandStory = () => {
+//   return (
+//     <section className="py-24 bg-white">
+//       <div className="container mx-auto px-6">
+//         <div className="flex flex-col md:flex-row gap-12 items-center">
+//           <motion.div
+//             initial={{ opacity: 0, x: -50 }}
+//             whileInView={{ opacity: 1, x: 0 }}
+//             viewport={{ once: true }}
+//             className="md:w-1/2"
+//           >
+//             <img
+//               src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format"
+//               alt="Craftsmanship"
+//               className="rounded-2xl shadow-2xl w-full object-cover h-[500px]"
+//             />
+//           </motion.div>
+
+//           <motion.div
+//             initial={{ opacity: 0, x: 50 }}
+//             whileInView={{ opacity: 1, x: 0 }}
+//             viewport={{ once: true }}
+//             className="md:w-1/2 space-y-6"
+//           >
+//             <h2 className="text-4xl md:text-5xl font-serif">The Art of Vision</h2>
+//             <p className="text-gray-600 leading-relaxed">
+//               At Eye Studio, we believe eyewear is more than a necessity—it's an expression of self.
+//               Each frame is meticulously crafted using Japanese titanium and Italian acetate,
+//               combining centuries-old techniques with modern innovation.
+//             </p>
+//             <p className="text-gray-600 leading-relaxed">
+//               Our commitment to excellence extends beyond aesthetics. Every pair is engineered for
+//               all-day comfort, featuring precision hinges and anti-reflective lenses that protect
+//               your eyes while elevating your style.
+//             </p>
+//             <button className="px-8 py-3 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide">
+//               Discover Our Story
+//             </button>
+//           </motion.div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── TESTIMONIALS ─────────────────────────────────────────────────────────────
+// const Testimonials = () => {
+//   const [current, setCurrent] = useState(0);
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setCurrent((prev) => (prev + 1) % testimonials.length);
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const testimonial = testimonials[current];
+
+//   return (
+//     <section className="py-24 bg-[#f5f3f0]">
+//       <div className="container mx-auto px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="text-center mb-16"
+//         >
+//           <h2 className="text-4xl md:text-5xl font-serif mb-4">What Our Clients Say</h2>
+//           <p className="text-gray-600">Trusted by visionaries worldwide</p>
+//         </motion.div>
+
+//         <div className="max-w-4xl mx-auto">
+//           <AnimatePresence mode="wait">
+//             <motion.div
+//               key={current}
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               exit={{ opacity: 0, y: -20 }}
+//               className="text-center"
+//             >
+//               <img
+//                 src={testimonial.image}
+//                 alt={testimonial.name}
+//                 className="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
+//               />
+//               <div className="flex justify-center gap-1 mb-6">
+//                 {[...Array(testimonial.rating)].map((_, i) => (
+//                   <span key={i} className="text-yellow-500 text-xl">★</span>
+//                 ))}
+//               </div>
+//               <p className="text-xl md:text-2xl italic font-serif text-gray-700 mb-8">
+//                 "{testimonial.content}"
+//               </p>
+//               <h4 className="font-medium text-lg">{testimonial.name}</h4>
+//               <p className="text-gray-500 text-sm">{testimonial.role}</p>
+//             </motion.div>
+//           </AnimatePresence>
+
+//           <div className="flex justify-center gap-2 mt-10">
+//             {testimonials.map((_, idx) => (
+//               <button
+//                 key={idx}
+//                 onClick={() => setCurrent(idx)}
+//                 className={`w-2 h-2 rounded-full transition-all ${
+//                   idx === current ? 'w-8 bg-black' : 'bg-gray-300'
+//                 }`}
+//               />
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── INSTAGRAM GALLERY ────────────────────────────────────────────────────────
+// const InstagramGallery = () => {
+//   return (
+//     <section className="py-24 bg-white">
+//       <div className="container mx-auto px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="text-center mb-12"
+//         >
+//           <h2 className="text-4xl md:text-5xl font-serif mb-4">@eyestudio</h2>
+//           <p className="text-gray-600">Follow us for daily inspiration</p>
+//         </motion.div>
+
+//         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+//           {instagramPosts.map((post, idx) => (
+//             <motion.div
+//               key={idx}
+//               initial={{ opacity: 0, scale: 0.9 }}
+//               whileInView={{ opacity: 1, scale: 1 }}
+//               viewport={{ once: true }}
+//               transition={{ delay: idx * 0.05 }}
+//               className="group relative overflow-hidden rounded-xl aspect-square cursor-pointer"
+//             >
+//               <img src={post} alt="Instagram" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+//               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+//                 <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+//                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+//                 </svg>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── NEWSLETTER ───────────────────────────────────────────────────────────────
+// const Newsletter = () => {
+//   return (
+//     <section className="py-20 bg-black text-white">
+//       <div className="container mx-auto px-6 text-center">
+//         <motion.div
+//           initial={{ opacity: 0, y: 30 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="max-w-2xl mx-auto"
+//         >
+//           <h2 className="text-3xl md:text-4xl font-serif mb-4">Join the Studio</h2>
+//           <p className="text-white/60 mb-8">Be the first to discover new arrivals and exclusive offers</p>
+//           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+//             <input
+//               type="email"
+//               placeholder="Your email address"
+//               className="flex-1 px-6 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-white/50"
+//             />
+//             <button className="px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition">
+//               Subscribe
+//             </button>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── MAIN HOME COMPONENT ──────────────────────────────────────────────────────
+// const Home = () => {
+//   useEffect(() => {
+//     window.scrollTo(0, 0);
+//   }, []);
+
+//   return (
+//     <div className="font-sans antialiased">
+//       <Hero />
+//       <FeaturedCategories />
+//       <TrendingProducts />
+//       <WhyChooseUs />
+//       <BrandStory />
+//       <Testimonials />
+//       <InstagramGallery />
+//       <Newsletter />
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+// import { useCart } from '../context/CartContext';
+// import { products } from '../data/product';
+
+// // --- Hero Slides ---
+// const heroSlides = [
+//   {
+//     id: 1,
+//     title: "Visionary Elegance",
+//     subtitle: "Autumn/Winter 2024",
+//     description: "Discover frames that redefine luxury",
+//     ctaPrimary: "Shop Collection",
+//     ctaSecondary: "Explore Luxury",
+//     image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format",
+//     gradient: "from-black/70 via-black/40 to-transparent"
+//   },
+//   {
+//     id: 2,
+//     title: "Minimalist Icon",
+//     subtitle: "The New Classic",
+//     description: "Where craftsmanship meets modern design",
+//     ctaPrimary: "Discover Now",
+//     ctaSecondary: "Shop Now",
+//     image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format",
+//     gradient: "from-black/60 via-black/30 to-transparent"
+//   },
+//   {
+//     id: 3,
+//     title: "Timeless Craft",
+//     subtitle: "Limited Edition",
+//     description: "Handcrafted perfection for the discerning",
+//     ctaPrimary: "Shop Limited",
+//     ctaSecondary: "Learn More",
+//     image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2070&auto=format",
+//     gradient: "from-black/70 via-black/40 to-transparent"
+//   }
+// ];
+
+// // --- Categories ---
+// const categories = [
+//   { id: 1, name: "Men", image: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format" },
+//   { id: 2, name: "Women", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format" },
+//   { id: 3, name: "Kids", image: "/happy-kid.jpg" }
+// ];
+
+// // --- Mapped product helpers ---
+// const mapProduct = (p, fallbackRating = 4.8, fallbackReviews = 124) => ({
+//   ...p,
+//   price: p.pricing?.discounted || 0,
+//   originalPrice: p.pricing?.original || 0,
+//   discount: p.pricing?.discount_percent || 0,
+//   image: p.cardImage || '/placeholder.jpg',
+//   rating: fallbackRating,
+//   reviews: fallbackReviews,
+// });
+
+// const menProducts = products
+//   .filter(p => { const c = (p.category||'').toLowerCase(), g = (p.gender||'').toLowerCase(); return c.includes('men') || g === 'men' || g === 'male'; })
+//   .slice(0, 4).map(p => mapProduct(p, 4.8, 124));
+
+// const womenProducts = products
+//   .filter(p => { const c = (p.category||'').toLowerCase(), g = (p.gender||'').toLowerCase(); return c.includes('women') || c.includes('woman') || g === 'women' || g === 'female'; })
+//   .slice(0, 4).map(p => mapProduct(p, 4.9, 98));
+
+// const kidsProducts = products
+//   .filter(p => { const c = (p.category||'').toLowerCase(), g = (p.gender||'').toLowerCase(); return c.includes('kid') || c.includes('child') || c.includes('junior') || g === 'kids'; })
+//   .slice(0, 4).map(p => mapProduct(p, 4.7, 56));
+
+// const menFinal   = menProducts.length   > 0 ? menProducts   : products.slice(0, 4).map(p => mapProduct(p, 4.8, 124));
+// const womenFinal = womenProducts.length > 0 ? womenProducts : products.slice(4, 8).map(p => mapProduct(p, 4.9, 98));
+// const kidsFinal  = kidsProducts.length  > 0 ? kidsProducts  : products.slice(8, 12).map(p => mapProduct(p, 4.7, 56));
+
+// // --- Features ---
+// const features = [
+//   { icon: "🚚", title: "Express Delivery", description: "Free shipping on all orders over Rs. 5,000" },
+//   { icon: "🛡️", title: "Authenticity Guaranteed", description: "100% original luxury products" },
+//   { icon: "🏆", title: "Premium Quality", description: "Handcrafted with Japanese titanium" },
+//   { icon: "✨", title: "Lifetime Comfort", description: "Ergonomic design for daily wear" }
+// ];
+
+// // --- Testimonials ---
+// const testimonials = [
+//   { id: 1, name: "Fatima Khan", role: "Fashion Blogger", content: "Eye Studio has the best collection I've seen. The quality is exceptional and the style is incredible. Highly recommend!", rating: 5, image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format" },
+//   { id: 2, name: "Ali Hassan", role: "Business Owner", content: "I've tried many eyewear brands but Eye Studio stands out. The comfort and design are unmatched. Worth every penny!", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format" },
+//   { id: 3, name: "Ayesha Malik", role: "Doctor", content: "My whole family uses Eye Studio glasses. Great quality, perfect fit, and amazing designs. Best choice for eye care!", rating: 5, image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1887&auto=format" }
+// ];
+
+// // --- Instagram Posts ---
+// const instagramPosts = [
+//   "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format",
+//   "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1594938378606-c8141f7e2b88?q=80&w=1887&auto=format",
+//   "https://images.unsplash.com/photo-1593784991095-a205069470b6?q=80&w=2070&auto=format",
+//   "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format"
+// ];
+
+// // ─── HERO ────────────────────────────────────────────────────────────────────
+// // The zoom-shake was caused by framer-motion's useTransform(scrollY) applying a
+// // CSS transform `y` that jumps when the browser's visualViewport resizes during
+// // pinch-zoom. Fix: parallax only renders on desktop (>= 1024px, no touch).
+// // useScroll / useTransform are ALWAYS called (rules of hooks) — they're just not
+// // applied to the DOM on mobile.
+
+// const Hero = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const [isDesktop, setIsDesktop] = useState(false);
+
+//   // Check once on mount + on resize — never on visualViewport change
+//   useEffect(() => {
+//     const check = () => {
+//       setIsDesktop(window.innerWidth >= 1024 && !('ontouchstart' in window));
+//     };
+//     check();
+//     window.addEventListener('resize', check);
+//     return () => window.removeEventListener('resize', check);
+//   }, []);
+
+//   // Always call these hooks (Rules of Hooks) — value only applied when isDesktop
+//   const { scrollY } = useScroll();
+//   const yParallax = useTransform(scrollY, [0, 600], [0, 120]);
+
+//   useEffect(() => {
+//     const timer = setInterval(() => setCurrentSlide(p => (p + 1) % heroSlides.length), 6000);
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   const slide = heroSlides[currentSlide];
+
+//   const heroTextContent = (
+//     <div className="container mx-auto px-5 sm:px-6">
+//       <motion.div
+//         initial={{ opacity: 0, y: 30 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ delay: 0.3, duration: 0.8 }}
+//         className="max-w-2xl"
+//       >
+//         <p className="text-white/80 text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4">
+//           {slide.subtitle}
+//         </p>
+//         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif text-white mb-4 sm:mb-6 leading-tight">
+//           {slide.title}
+//         </h1>
+//         <p className="text-white/90 text-base sm:text-lg md:text-xl mb-7 sm:mb-10 font-light max-w-sm sm:max-w-none">
+//           {slide.description}
+//         </p>
+//         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+//           <button className="px-6 sm:px-8 py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide">
+//             {slide.ctaPrimary}
+//           </button>
+//           <button className="px-6 sm:px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wide backdrop-blur-sm">
+//             {slide.ctaSecondary}
+//           </button>
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+
+//   return (
+//     <div className="relative h-screen min-h-[500px] w-full overflow-hidden">
+//       <AnimatePresence mode="wait">
+//         <motion.div
+//           key={currentSlide}
+//           initial={{ opacity: 0, scale: 1.1 }}
+//           animate={{ opacity: 1, scale: 1 }}
+//           exit={{ opacity: 0, scale: 1.05 }}
+//           transition={{ duration: 1.2, ease: "easeOut" }}
+//           className="absolute inset-0"
+//         >
+//           <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" loading="eager" />
+//           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`} />
+//         </motion.div>
+//       </AnimatePresence>
+
+//       {/*
+//         MOBILE: plain div — no transform, no y value, no shake ever
+//         DESKTOP: motion.div with parallax y transform
+//       */}
+//       {isDesktop ? (
+//         <motion.div style={{ y: yParallax }} className="relative z-10 h-full flex items-center">
+//           {heroTextContent}
+//         </motion.div>
+//       ) : (
+//         <div className="relative z-10 h-full flex items-center">
+//           {heroTextContent}
+//         </div>
+//       )}
+
+//       {/* Slide dots */}
+//       <motion.div
+//         initial={{ opacity: 0, y: 50 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ delay: 0.6, duration: 0.8 }}
+//         className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/20"
+//       >
+//         <div className="flex gap-4 sm:gap-6">
+//           {heroSlides.map((_, idx) => (
+//             <button
+//               key={idx}
+//               onClick={() => setCurrentSlide(idx)}
+//               className={`h-2 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-8 bg-white' : 'w-2 bg-white/50'}`}
+//             />
+//           ))}
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+// };
+
+// // ─── FEATURED CATEGORIES ─────────────────────────────────────────────────────
+// const FeaturedCategories = () => {
+//   const navigate = useNavigate();
+//   const handleShopNow = (name) => navigate(`/products?category=${name.toLowerCase()}`);
+
+//   return (
+//     <section className="py-14 sm:py-24 bg-[#f5f3f0]">
+//       <div className="container mx-auto px-4 sm:px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+//           className="text-center mb-10 sm:mb-16"
+//         >
+//           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">Discover Collections</h2>
+//           <p className="text-gray-600 max-w-lg mx-auto text-sm sm:text-base">Curated for every style and occasion</p>
+//         </motion.div>
+
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+//           {categories.map((cat, idx) => (
+//             <motion.div
+//               key={cat.id}
+//               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+//               transition={{ delay: idx * 0.1 }}
+//               onClick={() => handleShopNow(cat.name)}
+//               className="group relative overflow-hidden rounded-2xl cursor-pointer h-[260px] sm:h-[340px] md:h-[400px]"
+//             >
+//               <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+//               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+//               <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 text-white">
+//                 <h3 className="text-2xl sm:text-3xl font-serif mb-1 sm:mb-2">{cat.name}</h3>
+//                 {/* Always show on mobile (touch can't hover) */}
+//                 <span className="inline-block text-sm tracking-wide border-b border-white/50 pb-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
+//                   Shop Now →
+//                 </span>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── CATEGORY PRODUCT ROW ─────────────────────────────────────────────────────
+// const CategoryProductRow = ({ label, title, subtitle, products: rowProducts, sectionIdx }) => {
+//   const { addToCart } = useCart();
+//   const [addedId, setAddedId] = useState(null);
+
+//   const handleAddToCart = (product) => {
+//     addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, quantity: 1 });
+//     setAddedId(product.id);
+//     setTimeout(() => setAddedId(null), 2000);
+//   };
+
+//   if (!rowProducts || rowProducts.length === 0) return null;
+
+//   return (
+//     <motion.div
+//       initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true }} transition={{ duration: 0.6, delay: sectionIdx * 0.05 }}
+//       className="mb-14 sm:mb-20 last:mb-0"
+//     >
+//       <div className="mb-7 sm:mb-10">
+//         <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-2 sm:mb-3 flex items-center gap-2">
+//           <span className="inline-block w-5 h-px bg-gray-300" />{label}
+//         </p>
+//         <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif leading-none mb-1 sm:mb-2">{title}</h2>
+//         <p className="text-gray-500 text-sm">{subtitle}</p>
+//       </div>
+
+//       <div className="w-full h-px bg-gray-100 mb-7 sm:mb-10" />
+
+//       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7">
+//         {rowProducts.map((product, i) => (
+//           <motion.div
+//             key={`${title}-${product.id}-${i}`}
+//             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }}
+//             className="group cursor-pointer"
+//           >
+//             <div className="relative overflow-hidden bg-[#f0ede8] rounded-xl sm:rounded-2xl aspect-square mb-2 sm:mb-4">
+//               <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+
+//               {product.discount > 0 && (
+//                 <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-black text-white text-[10px] tracking-wider px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium">
+//                   -{product.discount}%
+//                 </span>
+//               )}
+
+//               {/* Add to cart: always visible on mobile, hover on desktop */}
+//               <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3
+//                               translate-y-0 md:translate-y-full md:group-hover:translate-y-0
+//                               transition-transform duration-300 ease-out">
+//                 <button
+//                   onClick={() => handleAddToCart(product)}
+//                   className="w-full bg-black text-white text-[10px] sm:text-xs tracking-widest uppercase py-2 sm:py-2.5 rounded-lg sm:rounded-xl hover:bg-gray-800 active:scale-95 transition-all"
+//                 >
+//                   {addedId === product.id ? '✓ Added' : 'Add to Cart'}
+//                 </button>
+//               </div>
+//             </div>
+
+//             <div>
+//               <h4 className="text-xs sm:text-sm font-medium tracking-wide truncate mb-0.5 sm:mb-1">{product.name}</h4>
+//               <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+//                 {product.originalPrice > 0 && product.originalPrice !== product.price && (
+//                   <span className="text-[10px] sm:text-xs text-gray-400 line-through">Rs. {product.originalPrice.toLocaleString('en-PK')}</span>
+//                 )}
+//                 <span className="text-xs sm:text-sm font-serif">Rs. {product.price.toLocaleString('en-PK')}</span>
+//               </div>
+//               <div className="flex items-center gap-1 mt-0.5 sm:mt-1">
+//                 <span className="text-yellow-400 text-xs">★</span>
+//                 <span className="text-[10px] sm:text-xs text-gray-400">{product.rating} ({product.reviews})</span>
+//               </div>
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// // ─── TRENDING PRODUCTS ────────────────────────────────────────────────────────
+// const TrendingProducts = () => {
+//   const sections = [
+//     { label: "Trending Now", title: "Men's Sunglasses", subtitle: "Bold frames built for the modern man", products: menFinal },
+//     { label: "New Arrivals", title: "Women's Sunglasses", subtitle: "Elegant designs that turn heads", products: womenFinal },
+//     { label: "Young Vision", title: "Kids' Sunglasses", subtitle: "Durable, playful & UV-protected", products: kidsFinal },
+//   ];
+//   return (
+//     <section className="py-14 sm:py-24 bg-white">
+//       <div className="container mx-auto px-4 sm:px-6">
+//         {sections.map((s, i) => <CategoryProductRow key={s.title} {...s} sectionIdx={i} />)}
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── WHY CHOOSE US ────────────────────────────────────────────────────────────
+// const WhyChooseUs = () => (
+//   <section className="py-14 sm:py-24 bg-[#f5f3f0]">
+//     <div className="container mx-auto px-4 sm:px-6">
+//       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
+//         <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">Why Choose Eye Studio</h2>
+//         <p className="text-gray-600 text-sm sm:text-base">Experience the difference of true luxury eyewear</p>
+//       </motion.div>
+//       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+//         {features.map((f, idx) => (
+//           <motion.div key={f.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
+//             className="group text-center p-4 sm:p-6 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+//             <div className="inline-flex p-2.5 sm:p-3 bg-black rounded-full mb-3 sm:mb-4 text-white group-hover:scale-110 transition-transform text-xl sm:text-2xl">{f.icon}</div>
+//             <h3 className="text-sm sm:text-lg font-medium mb-1 sm:mb-2">{f.title}</h3>
+//             <p className="text-gray-500 text-xs sm:text-sm">{f.description}</p>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// // ─── BRAND STORY ──────────────────────────────────────────────────────────────
+// const BrandStory = () => (
+//   <section className="py-14 sm:py-24 bg-white">
+//     <div className="container mx-auto px-4 sm:px-6">
+//       <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-center">
+//         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full md:w-1/2">
+//           <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format" alt="Craftsmanship"
+//             className="rounded-2xl shadow-2xl w-full object-cover h-[260px] sm:h-[380px] md:h-[500px]" loading="lazy" />
+//         </motion.div>
+//         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full md:w-1/2 space-y-4 sm:space-y-6">
+//           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif">The Art of Vision</h2>
+//           <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+//             At Eye Studio, we believe eyewear is more than a necessity—it's an expression of self.
+//             Each frame is meticulously crafted using Japanese titanium and Italian acetate,
+//             combining centuries-old techniques with modern innovation.
+//           </p>
+//           <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+//             Our commitment to excellence extends beyond aesthetics. Every pair is engineered for
+//             all-day comfort, featuring precision hinges and anti-reflective lenses that protect
+//             your eyes while elevating your style.
+//           </p>
+//           <button className="px-6 sm:px-8 py-3 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide w-full sm:w-auto">
+//             Discover Our Story
+//           </button>
+//         </motion.div>
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// // ─── TESTIMONIALS ─────────────────────────────────────────────────────────────
+// const Testimonials = () => {
+//   const [current, setCurrent] = useState(0);
+//   useEffect(() => {
+//     const timer = setInterval(() => setCurrent(p => (p + 1) % testimonials.length), 5000);
+//     return () => clearInterval(timer);
+//   }, []);
+//   const t = testimonials[current];
+//   return (
+//     <section className="py-14 sm:py-24 bg-[#f5f3f0]">
+//       <div className="container mx-auto px-4 sm:px-6">
+//         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
+//           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">What Our Clients Say</h2>
+//           <p className="text-gray-600 text-sm sm:text-base">Trusted by visionaries worldwide</p>
+//         </motion.div>
+//         <div className="max-w-4xl mx-auto">
+//           <AnimatePresence mode="wait">
+//             <motion.div key={current} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="text-center px-2 sm:px-0">
+//               <img src={t.image} alt={t.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 object-cover" loading="lazy" />
+//               <div className="flex justify-center gap-1 mb-4 sm:mb-6">
+//                 {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-500 text-lg sm:text-xl">★</span>)}
+//               </div>
+//               <p className="text-base sm:text-xl md:text-2xl italic font-serif text-gray-700 mb-5 sm:mb-8">"{t.content}"</p>
+//               <h4 className="font-medium text-base sm:text-lg">{t.name}</h4>
+//               <p className="text-gray-500 text-xs sm:text-sm">{t.role}</p>
+//             </motion.div>
+//           </AnimatePresence>
+//           <div className="flex justify-center gap-2 mt-8 sm:mt-10">
+//             {testimonials.map((_, idx) => (
+//               <button key={idx} onClick={() => setCurrent(idx)}
+//                 className={`h-2 rounded-full transition-all ${idx === current ? 'w-8 bg-black' : 'w-2 bg-gray-300'}`} />
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// // ─── INSTAGRAM GALLERY ────────────────────────────────────────────────────────
+// const InstagramGallery = () => (
+//   <section className="py-14 sm:py-24 bg-white">
+//     <div className="container mx-auto px-4 sm:px-6">
+//       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-8 sm:mb-12">
+//         <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">@eyestudio</h2>
+//         <p className="text-gray-600 text-sm sm:text-base">Follow us for daily inspiration</p>
+//       </motion.div>
+//       <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
+//         {instagramPosts.map((post, idx) => (
+//           <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: idx * 0.05 }}
+//             className="group relative overflow-hidden rounded-lg sm:rounded-xl aspect-square cursor-pointer">
+//             <img src={post} alt="Instagram" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+//             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+//               <svg className="w-5 h-5 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+//                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+//               </svg>
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// // ─── NEWSLETTER ───────────────────────────────────────────────────────────────
+// const Newsletter = () => (
+//   <section className="py-14 sm:py-20 bg-black text-white">
+//     <div className="container mx-auto px-4 sm:px-6 text-center">
+//       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto">
+//         <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif mb-3 sm:mb-4">Join the Studio</h2>
+//         <p className="text-white/60 mb-6 sm:mb-8 text-sm sm:text-base">Be the first to discover new arrivals and exclusive offers</p>
+//         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
+//           <input type="email" placeholder="Your email address"
+//             className="flex-1 px-5 sm:px-6 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-white/50 text-sm" />
+//           <button className="px-6 sm:px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition text-sm font-medium">Subscribe</button>
+//         </div>
+//       </motion.div>
+//     </div>
+//   </section>
+// );
+
+// // ─── MAIN HOME COMPONENT ──────────────────────────────────────────────────────
+// const Home = () => {
+//   useEffect(() => { window.scrollTo(0, 0); }, []);
+//   return (
+//     <div className="font-sans antialiased">
+//       <Hero />
+//       <FeaturedCategories />
+//       <TrendingProducts />
+//       <WhyChooseUs />
+//       <BrandStory />
+//       <Testimonials />
+//       <InstagramGallery />
+//       <Newsletter />
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
@@ -1617,31 +2883,31 @@ import { products } from '../data/product';
 const heroSlides = [
   {
     id: 1,
-    title: "Visionary Elegance",
-    subtitle: "Autumn/Winter 2024",
-    description: "Discover frames that redefine luxury",
-    ctaPrimary: "Shop Collection",
-    ctaSecondary: "Explore Luxury",
+    title: "",
+    subtitle: "",
+    description: "",
+    ctaPrimary: "",
+    ctaSecondary: "",
     image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=2070&auto=format",
     gradient: "from-black/70 via-black/40 to-transparent"
   },
   {
     id: 2,
-    title: "Minimalist Icon",
-    subtitle: "The New Classic",
-    description: "Where craftsmanship meets modern design",
-    ctaPrimary: "Discover Now",
-    ctaSecondary: "Shop Now",
+    title: "",
+    subtitle: "",
+    description: "",
+    ctaPrimary: "",
+    ctaSecondary: "",
     image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format",
     gradient: "from-black/60 via-black/30 to-transparent"
   },
   {
     id: 3,
-    title: "Timeless Craft",
-    subtitle: "Limited Edition",
-    description: "Handcrafted perfection for the discerning",
-    ctaPrimary: "Shop Limited",
-    ctaSecondary: "Learn More",
+    title: "",
+    subtitle: "",
+    description: "",
+    ctaPrimary: "",
+    ctaSecondary: "",
     image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=2070&auto=format",
     gradient: "from-black/70 via-black/40 to-transparent"
   }
@@ -1649,69 +2915,43 @@ const heroSlides = [
 
 // --- Categories ---
 const categories = [
-  { id: 1, name: "Men", image: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format", link: "/shop/men" },
-  { id: 2, name: "Women", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format", link: "/shop/women" },
-  { id: 3, name: "Sunglasses", image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=2070&auto=format", link: "/shop/sunglasses" },
-  { id: 4, name: "Kids", image: "/happy-kid.jpg", link: "/shop/kids" }
+  { id: 1, name: "Men",   image: "https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=1887&auto=format" },
+  { id: 2, name: "Women", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format" },
+  { id: 3, name: "Kids",  image: "/happy-kid.jpg" }
 ];
 
 // --- Mapped product helpers ---
 const mapProduct = (p, fallbackRating = 4.8, fallbackReviews = 124) => ({
   ...p,
-  price: p.pricing?.discounted || 0,
-  originalPrice: p.pricing?.original || 0,
-  discount: p.pricing?.discount_percent || 0,
-  image: p.cardImage || '/placeholder.jpg',
-  rating: fallbackRating,
-  reviews: fallbackReviews,
+  price:         p.pricing?.discounted    || 0,
+  originalPrice: p.pricing?.original      || 0,
+  discount:      p.pricing?.discount_percent || 0,
+  image:         p.cardImage || '/placeholder.jpg',
+  rating:        fallbackRating,
+  reviews:       fallbackReviews,
 });
 
-// Filter by category string — adjust the strings to match YOUR product data's category values
-const menProducts = products
-  .filter(p => {
-    const cat = (p.category || '').toLowerCase();
-    const gender = (p.gender || '').toLowerCase();
-    return cat.includes('men') || gender === 'men' || gender === 'male';
-  })
-  .slice(0, 4)
-  .map(p => mapProduct(p, 4.8, 124));
+const menProducts   = products.filter(p => { const c=(p.category||'').toLowerCase(), g=(p.gender||'').toLowerCase(); return c.includes('men') || g==='men' || g==='male'; }).slice(0,4).map(p=>mapProduct(p,4.8,124));
+const womenProducts = products.filter(p => { const c=(p.category||'').toLowerCase(), g=(p.gender||'').toLowerCase(); return c.includes('women')||c.includes('woman')||g==='women'||g==='female'; }).slice(0,4).map(p=>mapProduct(p,4.9,98));
+const kidsProducts  = products.filter(p => { const c=(p.category||'').toLowerCase(), g=(p.gender||'').toLowerCase(); return c.includes('kid')||c.includes('child')||c.includes('junior')||g==='kids'; }).slice(0,4).map(p=>mapProduct(p,4.7,56));
 
-const womenProducts = products
-  .filter(p => {
-    const cat = (p.category || '').toLowerCase();
-    const gender = (p.gender || '').toLowerCase();
-    return cat.includes('women') || cat.includes('woman') || gender === 'women' || gender === 'female';
-  })
-  .slice(0, 4)
-  .map(p => mapProduct(p, 4.9, 98));
-
-const kidsProducts = products
-  .filter(p => {
-    const cat = (p.category || '').toLowerCase();
-    const gender = (p.gender || '').toLowerCase();
-    return cat.includes('kid') || cat.includes('child') || cat.includes('junior') || gender === 'kids';
-  })
-  .slice(0, 4)
-  .map(p => mapProduct(p, 4.7, 56));
-
-// Fallback: if your filters return 0 products, slice from the full array
-const menFinal   = menProducts.length   > 0 ? menProducts   : products.slice(0, 4).map(p => mapProduct(p, 4.8, 124));
-const womenFinal = womenProducts.length > 0 ? womenProducts : products.slice(4, 8).map(p => mapProduct(p, 4.9, 98));
-const kidsFinal  = kidsProducts.length  > 0 ? kidsProducts  : products.slice(8, 12).map(p => mapProduct(p, 4.7, 56));
+const menFinal   = menProducts.length   > 0 ? menProducts   : products.slice(0,4).map(p=>mapProduct(p,4.8,124));
+const womenFinal = womenProducts.length > 0 ? womenProducts : products.slice(4,8).map(p=>mapProduct(p,4.9,98));
+const kidsFinal  = kidsProducts.length  > 0 ? kidsProducts  : products.slice(8,12).map(p=>mapProduct(p,4.7,56));
 
 // --- Features ---
 const features = [
-  { icon: "🚚", title: "Express Delivery", description: "Free shipping on all orders over Rs. 5,000" },
+  { icon: "🚚", title: "Express Delivery",        description: "Free shipping on all orders over Rs. 5,000" },
   { icon: "🛡️", title: "Authenticity Guaranteed", description: "100% original luxury products" },
-  { icon: "🏆", title: "Premium Quality", description: "Handcrafted with Japanese titanium" },
-  { icon: "✨", title: "Lifetime Comfort", description: "Ergonomic design for daily wear" }
+  { icon: "🏆", title: "Premium Quality",          description: "Handcrafted with Japanese titanium" },
+  { icon: "✨", title: "Lifetime Comfort",          description: "Ergonomic design for daily wear" }
 ];
 
 // --- Testimonials ---
 const testimonials = [
-  { id: 1, name: "Fatima Khan", role: "Fashion Blogger", content: "Eye Studio has the best collection I've seen. The quality is exceptional and the style is incredible. Highly recommend!", rating: 5, image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format" },
-  { id: 2, name: "Ali Hassan", role: "Business Owner", content: "I've tried many eyewear brands but Eye Studio stands out. The comfort and design are unmatched. Worth every penny!", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format" },
-  { id: 3, name: "Ayesha Malik", role: "Doctor", content: "My whole family uses Eye Studio glasses. Great quality, perfect fit, and amazing designs. Best choice for eye care!", rating: 5, image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1887&auto=format" }
+  { id:1, name:"Fatima Khan",  role:"Fashion Blogger", content:"Eye Studio has the best collection I've seen. The quality is exceptional and the style is incredible. Highly recommend!", rating:5, image:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format" },
+  { id:2, name:"Ali Hassan",   role:"Business Owner",  content:"I've tried many eyewear brands but Eye Studio stands out. The comfort and design are unmatched. Worth every penny!",    rating:5, image:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format" },
+  { id:3, name:"Ayesha Malik", role:"Doctor",           content:"My whole family uses Eye Studio glasses. Great quality, perfect fit, and amazing designs. Best choice for eye care!",   rating:5, image:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1887&auto=format" }
 ];
 
 // --- Instagram Posts ---
@@ -1725,75 +2965,115 @@ const instagramPosts = [
 ];
 
 // ─── HERO ────────────────────────────────────────────────────────────────────
+// FIX 2: Hero fully responsive on mobile
+// - Height: 70vh on mobile, 100vh on desktop (avoids address-bar overflow issues)
+// - Title font scales properly: 2.2rem mobile → 5rem desktop
+// - Buttons stack on mobile, row on desktop
+// - Parallax only on desktop (prevents zoom-shake on pinch)
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 200]);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 6000);
-    return () => clearInterval(interval);
+    const check = () => setIsDesktop(window.innerWidth >= 1024 && !('ontouchstart' in window));
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const { scrollY } = useScroll();
+  const yParallax   = useTransform(scrollY, [0, 600], [0, 120]);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentSlide(p => (p + 1) % heroSlides.length), 6000);
+    return () => clearInterval(timer);
   }, []);
 
   const slide = heroSlides[currentSlide];
+  const navigate = useNavigate();
+
+  const heroTextContent = (
+    <div className="container mx-auto px-5 sm:px-8 lg:px-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        className="max-w-xl lg:max-w-2xl"
+      >
+        {/* Subtitle tag */}
+        <p className="text-white/75 text-[10px] xs:text-xs sm:text-sm tracking-[0.18em] sm:tracking-[0.28em] mb-2 sm:mb-4 uppercase">
+          {slide.subtitle}
+        </p>
+
+        {/* Main heading — tightest on very small screens */}
+        <h1
+          className="font-serif text-white leading-[1.05] mb-3 sm:mb-5"
+          style={{ fontSize: 'clamp(2rem, 9vw, 5.5rem)' }}
+        >
+          {slide.title}
+        </h1>
+
+        {/* Description */}
+        <p className="text-white/85 text-sm sm:text-base md:text-lg mb-6 sm:mb-9 font-light leading-relaxed max-w-xs sm:max-w-sm md:max-w-none">
+          {slide.description}
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col xs:flex-row gap-2.5 sm:gap-3">
+         
+        </div>
+      </motion.div>
+    </div>
+  );
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    // FIX: use min-h with dvh fallback so mobile browsers don't overflow under address bar
+   <div className="hero-section relative w-full overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
+          exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0"
         >
-          <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          {/* Gradient: stronger on mobile so text stays readable on small screens */}
           <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}`} />
+          <div className="absolute inset-0 bg-black/20 sm:bg-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      <motion.div style={{ y }} className="relative z-10 h-full flex items-center">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="max-w-2xl"
-          >
-            <p className="text-white/80 text-sm tracking-[0.3em] mb-4">{slide.subtitle}</p>
-            <h1 className="text-6xl md:text-8xl font-serif text-white mb-6 leading-tight">
-              {slide.title}
-            </h1>
-            <p className="text-white/90 text-lg md:text-xl mb-10 font-light">{slide.description}</p>
-            <div className="flex gap-4">
-              <button className="px-8 py-3 bg-white text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide">
-                {slide.ctaPrimary}
-              </button>
-              <button className="px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wide backdrop-blur-sm">
-                {slide.ctaSecondary}
-              </button>
-            </div>
-          </motion.div>
+      {/* Text layer */}
+      {isDesktop ? (
+        <motion.div style={{ y: yParallax }} className="relative z-10 h-full flex items-center">
+          {heroTextContent}
+        </motion.div>
+      ) : (
+        <div className="relative z-10 h-full flex items-center">
+          {heroTextContent}
         </div>
-      </motion.div>
+      )}
 
+      {/* Slide dots */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20"
+        transition={{ delay: 0.7, duration: 0.6 }}
+        className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl px-3 py-2 sm:px-4 sm:py-3 border border-white/20"
       >
-        <div className="flex gap-6">
+        <div className="flex gap-3 sm:gap-5 items-center">
           {heroSlides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                idx === currentSlide ? 'w-8 bg-white' : 'bg-white/50'
-              }`}
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${idx === currentSlide ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/50'}`}
             />
           ))}
         </div>
@@ -1803,79 +3083,59 @@ const Hero = () => {
 };
 
 // ─── FEATURED CATEGORIES ─────────────────────────────────────────────────────
+// FIX 1: Cards are smaller on mobile
+// - Mobile: 3-column grid, compact height (160px), smaller text
+// - Tablet+: 3-column grid, taller cards
 const FeaturedCategories = () => {
   const navigate = useNavigate();
-
-  const handleShopNow = (categoryName) => {
-    navigate(`/products?category=${categoryName.toLowerCase()}`);
-  };
+  const handleShopNow = (name) => navigate(`/products?category=${name.toLowerCase()}`);
 
   return (
-    <section className="py-24 bg-[#f5f3f0]">
-      <div className="container mx-auto px-6">
+    <section className="py-10 sm:py-16 md:py-24 bg-[#f5f3f0]">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="text-center mb-7 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-serif mb-4">Discover Collections</h2>
-          <p className="text-gray-600 max-w-lg mx-auto">Curated for every style and occasion</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif mb-2 sm:mb-3">Discover Collections</h2>
+          <p className="text-gray-600 max-w-lg mx-auto text-xs sm:text-sm md:text-base">Curated for every style and occasion</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {categories.slice(0, 3).map((cat, idx) => (
+        {/* 
+          Mobile: 3 equal columns, short cards (side-by-side)
+          sm+: still 3 columns but taller
+          md+: full tall cards
+        */}
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-4 md:gap-6">
+          {categories.map((cat, idx) => (
             <motion.div
               key={cat.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               onClick={() => handleShopNow(cat.name)}
-              className="group relative overflow-hidden rounded-2xl cursor-pointer h-[400px]"
+              className="group relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer"
+              // FIX: compact height on mobile, taller on bigger screens
+              style={{ height: 'clamp(130px, 28vw, 420px)' }}
             >
-              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <h3 className="text-3xl font-serif mb-2">{cat.name}</h3>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShopNow(cat.name);
-                  }}
-                  className="inline-block text-sm tracking-wide border-b border-white/50 pb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:border-white bg-transparent text-white cursor-pointer"
-                >
-                  Shop Now →
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              <img
+                src={cat.image}
+                alt={cat.name}
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          {categories.slice(3, 5).map((cat, idx) => (
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 + idx * 0.1 }}
-              onClick={() => handleShopNow(cat.name)}
-              className="group relative overflow-hidden rounded-2xl cursor-pointer h-[300px]"
-            >
-              <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <h3 className="text-3xl font-serif mb-2">{cat.name}</h3>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShopNow(cat.name);
-                  }}
-                  className="inline-block text-sm tracking-wide border-b border-white/50 pb-1 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:border-white bg-transparent text-white cursor-pointer"
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 md:p-6 lg:p-8 text-white">
+                <h3
+                  className="font-serif leading-tight"
+                  style={{ fontSize: 'clamp(0.8rem, 3.5vw, 1.875rem)' }}
                 >
+                  {cat.name}
+                </h3>
+                {/* "Shop Now" — hidden on very small, visible on sm+ hover */}
+                <span className="hidden sm:inline-block text-xs sm:text-sm tracking-wide border-b border-white/50 pb-0.5 mt-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
                   Shop Now →
-                </button>
+                </span>
               </div>
             </motion.div>
           ))}
@@ -1886,98 +3146,98 @@ const FeaturedCategories = () => {
 };
 
 // ─── CATEGORY PRODUCT ROW ─────────────────────────────────────────────────────
+// FIX 3: Product card click → navigate to product detail page
 const CategoryProductRow = ({ label, title, subtitle, products: rowProducts, sectionIdx }) => {
   const { addToCart } = useCart();
+  const navigate      = useNavigate();
   const [addedId, setAddedId] = useState(null);
 
-  const handleAddToCart = (product) => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: 1,
-    });
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation(); // prevent card navigation
+    addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, quantity: 1 });
     setAddedId(product.id);
     setTimeout(() => setAddedId(null), 2000);
+  };
+
+  // Navigate to product detail — same pattern as ProductCard in ProductsPage
+  const handleCardClick = (product) => {
+    navigate(`/product/${product.id}`);
   };
 
   if (!rowProducts || rowProducts.length === 0) return null;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: sectionIdx * 0.05 }}
-      className="mb-20 last:mb-0"
+      initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }} transition={{ duration: 0.6, delay: sectionIdx * 0.05 }}
+      className="mb-14 sm:mb-20 last:mb-0"
     >
-      {/* Section Header */}
-      <div className="mb-10">
-        <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-3 flex items-center gap-2">
-          <span className="inline-block w-5 h-px bg-gray-300" />
-          {label}
+      {/* Section header */}
+      <div className="mb-7 sm:mb-10">
+        <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-2 sm:mb-3 flex items-center gap-2">
+          <span className="inline-block w-5 h-px bg-gray-300" />{label}
         </p>
-        <h2 className="text-4xl md:text-5xl font-serif leading-none mb-2">{title}</h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif leading-none mb-1 sm:mb-2">{title}</h2>
         <p className="text-gray-500 text-sm">{subtitle}</p>
       </div>
 
-      {/* Divider */}
-      <div className="w-full h-px bg-gray-100 mb-10" />
+      <div className="w-full h-px bg-gray-100 mb-7 sm:mb-10" />
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-7">
         {rowProducts.map((product, i) => (
           <motion.div
             key={`${title}-${product.id}-${i}`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.07 }}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.07 }}
             className="group cursor-pointer"
+            onClick={() => handleCardClick(product)}   // ← FIX 3
           >
-            {/* Image */}
-            <div className="relative overflow-hidden bg-[#f0ede8] rounded-2xl aspect-square mb-4">
+            <div className="relative overflow-hidden bg-[#f0ede8] rounded-xl sm:rounded-2xl aspect-square mb-2 sm:mb-4">
               <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
               />
 
-              {/* Discount badge */}
               {product.discount > 0 && (
-                <span className="absolute top-3 left-3 bg-black text-white text-[10px] tracking-wider px-2.5 py-1 rounded-full font-medium">
+                <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-black text-white text-[10px] tracking-wider px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium">
                   -{product.discount}%
                 </span>
               )}
 
-              {/* Add to cart — slides up on hover */}
-              <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out p-3">
+              {/* Add to Cart — always visible on mobile, slides in on desktop hover */}
+              <div
+                className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300 ease-out"
+                onClick={(e) => e.stopPropagation()} // prevent navigating when tapping this area
+              >
                 <button
-                  onClick={() => handleAddToCart(product)}
-                  className="w-full bg-black text-white text-xs tracking-widest uppercase py-2.5 rounded-xl hover:bg-gray-800 transition-colors"
+                  onClick={(e) => handleAddToCart(e, product)}
+                  className="w-full bg-black text-white text-[10px] sm:text-xs tracking-widest uppercase py-2 sm:py-2.5 rounded-lg sm:rounded-xl hover:bg-gray-800 active:scale-95 transition-all"
                 >
                   {addedId === product.id ? '✓ Added' : 'Add to Cart'}
                 </button>
               </div>
             </div>
 
-            {/* Info */}
+            {/* Product info */}
             <div>
-              <h4 className="text-sm font-medium tracking-wide truncate mb-1">{product.name}</h4>
-              <div className="flex items-center gap-2">
+              <h4 className="text-xs sm:text-sm font-medium tracking-wide truncate mb-0.5 sm:mb-1 group-hover:underline underline-offset-2 transition-all">
+                {product.name}
+              </h4>
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                 {product.originalPrice > 0 && product.originalPrice !== product.price && (
-                  <span className="text-xs text-gray-400 line-through">
+                  <span className="text-[10px] sm:text-xs text-gray-400 line-through">
                     Rs. {product.originalPrice.toLocaleString('en-PK')}
                   </span>
                 )}
-                <span className="text-sm font-serif">
+                <span className="text-xs sm:text-sm font-serif">
                   Rs. {product.price.toLocaleString('en-PK')}
                 </span>
               </div>
-              <div className="flex items-center gap-1 mt-1">
+              <div className="flex items-center gap-1 mt-0.5 sm:mt-1">
                 <span className="text-yellow-400 text-xs">★</span>
-                <span className="text-xs text-gray-400">{product.rating} ({product.reviews})</span>
+                <span className="text-[10px] sm:text-xs text-gray-400">{product.rating} ({product.reviews})</span>
               </div>
             </div>
           </motion.div>
@@ -1987,193 +3247,105 @@ const CategoryProductRow = ({ label, title, subtitle, products: rowProducts, sec
   );
 };
 
-// ─── TRENDING PRODUCTS (3 category rows) ─────────────────────────────────────
+// ─── TRENDING PRODUCTS ────────────────────────────────────────────────────────
 const TrendingProducts = () => {
-  const categorySections = [
-    {
-      label: "Trending Now",
-      title: "Men's Sunglasses",
-      subtitle: "Bold frames built for the modern man",
-      products: menFinal,
-    },
-    {
-      label: "New Arrivals",
-      title: "Women's Sunglasses",
-      subtitle: "Elegant designs that turn heads",
-      products: womenFinal,
-    },
-    {
-      label: "Young Vision",
-      title: "Kids' Sunglasses",
-      subtitle: "Durable, playful & UV-protected",
-      products: kidsFinal,
-    },
+  const sections = [
+    { label: "Trending Now",  title: "Men's Sunglasses",   subtitle: "Bold frames built for the modern man", products: menFinal },
+    { label: "New Arrivals",  title: "Women's Sunglasses", subtitle: "Elegant designs that turn heads",       products: womenFinal },
+    { label: "Young Vision",  title: "Kids' Sunglasses",   subtitle: "Durable, playful & UV-protected",      products: kidsFinal },
   ];
-
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6">
-        {categorySections.map((cat, idx) => (
-          <CategoryProductRow
-            key={cat.title}
-            label={cat.label}
-            title={cat.title}
-            subtitle={cat.subtitle}
-            products={cat.products}
-            sectionIdx={idx}
-          />
-        ))}
+    <section className="py-14 sm:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        {sections.map((s, i) => <CategoryProductRow key={s.title} {...s} sectionIdx={i} />)}
       </div>
     </section>
   );
 };
 
 // ─── WHY CHOOSE US ────────────────────────────────────────────────────────────
-const WhyChooseUs = () => {
-  return (
-    <section className="py-24 bg-[#f5f3f0]">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-serif mb-4">Why Choose Eye Studio</h2>
-          <p className="text-gray-600">Experience the difference of true luxury eyewear</p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, idx) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group text-center p-6 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="inline-flex p-3 bg-black rounded-full mb-4 text-white group-hover:scale-110 transition-transform text-2xl">
-                {feature.icon}
-              </div>
-              <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
-              <p className="text-gray-500 text-sm">{feature.description}</p>
-            </motion.div>
-          ))}
-        </div>
+const WhyChooseUs = () => (
+  <section className="py-14 sm:py-24 bg-[#f5f3f0]">
+    <div className="container mx-auto px-4 sm:px-6">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">Why Choose Eye Studio</h2>
+        <p className="text-gray-600 text-sm sm:text-base">Experience the difference of true luxury eyewear</p>
+      </motion.div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+        {features.map((f, idx) => (
+          <motion.div key={f.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }}
+            className="group text-center p-4 sm:p-6 rounded-2xl bg-white/50 backdrop-blur-sm border border-white/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div className="inline-flex p-2.5 sm:p-3 bg-black rounded-full mb-3 sm:mb-4 text-white group-hover:scale-110 transition-transform text-xl sm:text-2xl">{f.icon}</div>
+            <h3 className="text-sm sm:text-lg font-medium mb-1 sm:mb-2">{f.title}</h3>
+            <p className="text-gray-500 text-xs sm:text-sm">{f.description}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // ─── BRAND STORY ──────────────────────────────────────────────────────────────
-const BrandStory = () => {
-  return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="md:w-1/2"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format"
-              alt="Craftsmanship"
-              className="rounded-2xl shadow-2xl w-full object-cover h-[500px]"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="md:w-1/2 space-y-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-serif">The Art of Vision</h2>
-            <p className="text-gray-600 leading-relaxed">
-              At Eye Studio, we believe eyewear is more than a necessity—it's an expression of self.
-              Each frame is meticulously crafted using Japanese titanium and Italian acetate,
-              combining centuries-old techniques with modern innovation.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-              Our commitment to excellence extends beyond aesthetics. Every pair is engineered for
-              all-day comfort, featuring precision hinges and anti-reflective lenses that protect
-              your eyes while elevating your style.
-            </p>
-            <button className="px-8 py-3 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide">
-              Discover Our Story
-            </button>
-          </motion.div>
-        </div>
+const BrandStory = () => (
+  <section className="py-14 sm:py-24 bg-white">
+    <div className="container mx-auto px-4 sm:px-6">
+      <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-center">
+        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full md:w-1/2">
+          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=2071&auto=format" alt="Craftsmanship"
+            className="rounded-2xl shadow-2xl w-full object-cover h-[260px] sm:h-[380px] md:h-[500px]" loading="lazy" />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="w-full md:w-1/2 space-y-4 sm:space-y-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif">The Art of Vision</h2>
+          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+            At Eye Studio, we believe eyewear is more than a necessity—it's an expression of self.
+            Each frame is meticulously crafted using Japanese titanium and Italian acetate,
+            combining centuries-old techniques with modern innovation.
+          </p>
+          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+            Our commitment to excellence extends beyond aesthetics. Every pair is engineered for
+            all-day comfort, featuring precision hinges and anti-reflective lenses that protect
+            your eyes while elevating your style.
+          </p>
+          <button className="px-6 sm:px-8 py-3 border border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm tracking-wide w-full sm:w-auto">
+            Discover Our Story
+          </button>
+        </motion.div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // ─── TESTIMONIALS ─────────────────────────────────────────────────────────────
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => setCurrent(p => (p + 1) % testimonials.length), 5000);
+    return () => clearInterval(timer);
   }, []);
-
-  const testimonial = testimonials[current];
-
+  const t = testimonials[current];
   return (
-    <section className="py-24 bg-[#f5f3f0]">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-serif mb-4">What Our Clients Say</h2>
-          <p className="text-gray-600">Trusted by visionaries worldwide</p>
+    <section className="py-14 sm:py-24 bg-[#f5f3f0]">
+      <div className="container mx-auto px-4 sm:px-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">What Our Clients Say</h2>
+          <p className="text-gray-600 text-sm sm:text-base">Trusted by visionaries worldwide</p>
         </motion.div>
-
         <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center"
-            >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
-              />
-              <div className="flex justify-center gap-1 mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <span key={i} className="text-yellow-500 text-xl">★</span>
-                ))}
+            <motion.div key={current} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="text-center px-2 sm:px-0">
+              <img src={t.image} alt={t.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 sm:mb-6 object-cover" loading="lazy" />
+              <div className="flex justify-center gap-1 mb-4 sm:mb-6">
+                {[...Array(t.rating)].map((_, i) => <span key={i} className="text-yellow-500 text-lg sm:text-xl">★</span>)}
               </div>
-              <p className="text-xl md:text-2xl italic font-serif text-gray-700 mb-8">
-                "{testimonial.content}"
-              </p>
-              <h4 className="font-medium text-lg">{testimonial.name}</h4>
-              <p className="text-gray-500 text-sm">{testimonial.role}</p>
+              <p className="text-base sm:text-xl md:text-2xl italic font-serif text-gray-700 mb-5 sm:mb-8">"{t.content}"</p>
+              <h4 className="font-medium text-base sm:text-lg">{t.name}</h4>
+              <p className="text-gray-500 text-xs sm:text-sm">{t.role}</p>
             </motion.div>
           </AnimatePresence>
-
-          <div className="flex justify-center gap-2 mt-10">
+          <div className="flex justify-center gap-2 mt-8 sm:mt-10">
             {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrent(idx)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  idx === current ? 'w-8 bg-black' : 'bg-gray-300'
-                }`}
-              />
+              <button key={idx} onClick={() => setCurrent(idx)}
+                className={`h-2 rounded-full transition-all ${idx === current ? 'w-8 bg-black' : 'w-2 bg-gray-300'}`} />
             ))}
           </div>
         </div>
@@ -2183,79 +3355,50 @@ const Testimonials = () => {
 };
 
 // ─── INSTAGRAM GALLERY ────────────────────────────────────────────────────────
-const InstagramGallery = () => {
-  return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl md:text-5xl font-serif mb-4">@eyestudio</h2>
-          <p className="text-gray-600">Follow us for daily inspiration</p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {instagramPosts.map((post, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="group relative overflow-hidden rounded-xl aspect-square cursor-pointer"
-            >
-              <img src={post} alt="Instagram" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+const InstagramGallery = () => (
+  <section className="py-14 sm:py-24 bg-white">
+    <div className="container mx-auto px-4 sm:px-6">
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-8 sm:mb-12">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif mb-3 sm:mb-4">@eyestudio</h2>
+        <p className="text-gray-600 text-sm sm:text-base">Follow us for daily inspiration</p>
+      </motion.div>
+      <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
+        {instagramPosts.map((post, idx) => (
+          <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: idx * 0.05 }}
+            className="group relative overflow-hidden rounded-lg sm:rounded-xl aspect-square cursor-pointer">
+            <img src={post} alt="Instagram" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <svg className="w-5 h-5 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // ─── NEWSLETTER ───────────────────────────────────────────────────────────────
-const Newsletter = () => {
-  return (
-    <section className="py-20 bg-black text-white">
-      <div className="container mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
-        >
-          <h2 className="text-3xl md:text-4xl font-serif mb-4">Join the Studio</h2>
-          <p className="text-white/60 mb-8">Be the first to discover new arrivals and exclusive offers</p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-6 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-white/50"
-            />
-            <button className="px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition">
-              Subscribe
-            </button>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+const Newsletter = () => (
+  <section className="py-14 sm:py-20 bg-black text-white">
+    <div className="container mx-auto px-4 sm:px-6 text-center">
+      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif mb-3 sm:mb-4">Join the Studio</h2>
+        <p className="text-white/60 mb-6 sm:mb-8 text-sm sm:text-base">Be the first to discover new arrivals and exclusive offers</p>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
+          <input type="email" placeholder="Your email address"
+            className="flex-1 px-5 sm:px-6 py-3 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-white/50 text-sm" />
+          <button className="px-6 sm:px-8 py-3 bg-white text-black rounded-full hover:bg-gray-100 transition text-sm font-medium">Subscribe</button>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
 
 // ─── MAIN HOME COMPONENT ──────────────────────────────────────────────────────
 const Home = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <div className="font-sans antialiased">
       <Hero />
@@ -2271,7 +3414,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-

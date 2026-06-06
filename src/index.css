@@ -1,1 +1,10 @@
 @import "tailwindcss";  
+.hero-section {
+  height: clamp(480px, 100svh, 100vh);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: 30vh;
+  }
+}
