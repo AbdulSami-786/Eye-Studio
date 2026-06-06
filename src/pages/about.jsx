@@ -565,10 +565,10 @@ const About = () => {
   ];
 
   const shopImages = [
-    { url: './public/shop-1.jpeg', label: 'Frames Display', num: '01' },
-    { url: './public/shop-2.jpeg', label: 'Interior', num: '02' },
-    { url: './public/shop-3.jpeg', label: 'Interior', num: '03' },
-    { url: './public/shop-4.jpeg', label: 'Interior', num: '04' },
+    { url: '../public/shop-1.jpeg', label: 'Frames Display', num: '01' },
+    { url: '../public/shop-2.jpeg', label: 'Interior', num: '02' },
+    { url: '../public/shop-3.jpeg', label: 'Interior', num: '03' },
+    { url: '../public/shop-4.jpeg', label: 'Interior', num: '04' },
   ];
 
   return (
