@@ -27,7 +27,7 @@ export const formatOrderMessage = (orderData) => {
 
   message += `*Items Ordered:*\n`;
   items.forEach((item, index) => {
-    message += `${index + 1}. ${item.name}\n`;
+    message += `${index + 1}. ${item.name},${item.id}\n`;
     message += `   Qty: ${item.quantity} × Rs. ${item.price.toLocaleString('en-PK')}\n`;
     if (item.selectedVariant?.colorName) {
       message += `   Color: ${item.selectedVariant.colorName}\n`;
