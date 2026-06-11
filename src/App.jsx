@@ -1746,7 +1746,7 @@ const Footer = () => {
                 Bahadurabad,
                 Karachi, Pakistan.</p>
               <p>WhatsApp: 0318-3140548</p>
-              <p>Email: EyeStudio@gmail.com</p>
+              <p>Email: daniyalndaniyal1@gmail.com</p>
             </div>
           </div>
         </div>
